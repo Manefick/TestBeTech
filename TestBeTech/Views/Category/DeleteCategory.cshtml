@@ -1,0 +1,14 @@
+﻿@model ViewChoiceCategory
+<div class="bg-primary m-1 p-1 text-white"><h4>Удаление категорий </h4></div>
+<div asp-validation-summary=" All" class="text-danger"></div>
+
+<form asp-action="DeleteCategory" method="post">
+    <div class="form-group">
+        <label asp-for="SelectedCategory">Выберите категорию</label>
+        <select class="form-control" asp-for="SelectedCategory"
+                asp-items="@(new SelectList(Model.categories,"Id","Name"))">
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Удалить</button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

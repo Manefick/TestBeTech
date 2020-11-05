@@ -1,0 +1,14 @@
+﻿@model List<ViewCategory>
+<div class="bg-primary m-1 p-1 text-white"><h4>Categories</h4></div>
+<table>
+    <tr>
+        <th>Название категории</th>
+    </tr>
+    @foreach (ViewCategory c in Model)
+    {
+        <tr>
+            <td>@c.Name</td>
+        </tr>
+    }
+</table>
+<a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Home</a>

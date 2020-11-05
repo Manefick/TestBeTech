@@ -1,0 +1,12 @@
+﻿@model ViewCategory
+
+<div class="bg-primary m-1 p-1 text-white"><h4>Добавление категории</h4></div>
+<div asp-validation-summary=" All" class="text-danger"></div>
+<form asp-action="AddCategory" method="post">
+    <div class="form-group">
+        <label asp-for="Name">Введите название категории</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Отмена</a>
+</form>
