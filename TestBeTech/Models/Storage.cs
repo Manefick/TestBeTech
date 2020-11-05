@@ -11,5 +11,9 @@ namespace TestBeTech.Models
         public string Name { get; set; }
         public string Address { get; set; }
         public ICollection<ProductStorage> ProductStorages { get; set; }
+        public Storage()
+        {
+            ProductStorages = new HashSet<ProductStorage>();
+        }
     }
 }

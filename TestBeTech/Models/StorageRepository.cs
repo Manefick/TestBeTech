@@ -1,18 +1,33 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace TestBeTech.Models
 {
-    public class StorageRepository:IStoregeRepository
+    public class StorageRepository : IStoregeRepository
     {
         private ApplicationDbContext context;
         public StorageRepository(ApplicationDbContext ctx)
         {
             context = ctx;
         }
-        public IQueryable<Storage> Storages => context.Storages;
+        public IQueryable<Storage> Storages => context.Storages.Include(x => x.ProductStorages).ThenInclude(x => x.Product);
+        public Storage StorageWithProd(int id)
+        {
+            return context.Storages
+                .Include(x => x.ProductStorages)
+                .ThenInclude(x => x.Product)
+                .Include(x => x.ProductStorages)
+                .ThenInclude(x => x.Product)
+                .ThenInclude(x=>x.Category)
+                .Include(x => x.ProductStorages)
+                .ThenInclude(x => x.Product)
+                .ThenInclude(x => x.Currency)
+                .FirstOrDefault(x => x.Id == id);
+        }
+
         public void AddStorage(Storage storage)
         {
             if (storage != null)

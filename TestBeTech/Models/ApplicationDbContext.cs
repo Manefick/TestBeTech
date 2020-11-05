@@ -15,6 +15,7 @@ namespace TestBeTech.Models
         public DbSet<Storage> Storages { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<ProductStorage> ProductStorages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,7 +28,12 @@ namespace TestBeTech.Models
             modelBuilder.Entity<ProductStorage>()
                 .HasOne(ps => ps.Storage)
                 .WithMany(s => s.ProductStorages)
-                .HasForeignKey(ps =>ps.StorageId );
+                .HasForeignKey(ps => ps.StorageId);
+
+            modelBuilder.Entity<Product>()
+               .HasMany(ps => ps.ProductStorages)
+               .WithOne(p => p.Product)
+               .HasForeignKey(ps => ps.ProductId);
         }
     }
 }

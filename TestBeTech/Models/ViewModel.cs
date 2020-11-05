@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -36,15 +37,27 @@ namespace TestBeTech.Models
         public int SelectedStorage { get; set; }
         public string NewName { get; set; }
         public string NewAdress { get; set; }
+        public List<Product> ProductsList { get; set; }
+        //public string NameP { get; set; }
+        //public double BasicCurrPriceP { get; set; }
+        //public double PriceP { get; set; }
+        //public int BarcodeP { get; set; }
+        //public int CountP { get; set; }
+        //public Category CategoryP { get; set; }
+        //public Currency CurrencyP { get; set; }
+
     }
     public class ViewProduct
     {
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
         public double BasicCurrPrice { get; set; }
         public double Price { get; set; }
         public int Barcode { get; set; }
         public int Count { get; set; }
+        public string CategoryName { get; set; }
+        public string CurrencyName { get; set; }
         public int SelectedCategory { get; set; }
         public int SelectedCurrency { get; set; }
         public int SelectedStorage{ get; set; }

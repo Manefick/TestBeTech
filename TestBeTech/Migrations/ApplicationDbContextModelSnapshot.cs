@@ -107,7 +107,7 @@ namespace TestBeTech.Migrations
 
                     b.HasIndex("StorageId");
 
-                    b.ToTable("productStorages");
+                    b.ToTable("ProductStorages");
                 });
 
             modelBuilder.Entity("TestBeTech.Models.Storage", b =>

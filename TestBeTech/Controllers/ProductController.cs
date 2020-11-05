@@ -66,6 +66,7 @@ namespace TestBeTech.Controllers
             {
                 Storage storage = storegeRepository.Storages.Where(p => p.Id == info.SelectedStorage).FirstOrDefault();
                 Currency currency = currencyRepository.Currencies.Where(p => p.Id == info.SelectedCurrency).FirstOrDefault();
+                Random rnd = new Random();
                 Product prod = productRepository.AddProduct(new Product
                 {
                     Name = info.Name,
@@ -74,8 +75,10 @@ namespace TestBeTech.Controllers
                     Count = info.Count,
                     CurrencyId = info.SelectedCurrency,
                     BasicCurrPrice = info.Price * currency.ExchangeRate,
-                    ProductStorages = new List<ProductStorage> { new ProductStorage {Storage = storage } }//??
-                });
+                    Barcode = rnd.Next(10000000, 99999999),
+                    ProductStorages = new List<ProductStorage> { new ProductStorage { StorageId = storage.Id } }
+                }) ;
+                
 
             }
             return RedirectToAction("Index", "Home");

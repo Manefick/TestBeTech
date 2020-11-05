@@ -28,7 +28,7 @@ namespace TestBeTech.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
                     ShortName = table.Column<string>(nullable: true),
-                    ExchangeRate = table.Column<int>(nullable: false),
+                    ExchangeRate = table.Column<double>(nullable: false),
                     UpdateDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -57,10 +57,11 @@ namespace TestBeTech.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
-                    BasicCurrPrice = table.Column<int>(nullable: false),
-                    Price = table.Column<int>(nullable: false),
+                    BasicCurrPrice = table.Column<double>(nullable: false),
+                    Price = table.Column<double>(nullable: false),
                     Barcode = table.Column<int>(nullable: false),
                     CategoryId = table.Column<int>(nullable: false),
+                    Count = table.Column<int>(nullable: false),
                     CurrencyId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -81,7 +82,7 @@ namespace TestBeTech.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductStorage",
+                name: "ProductStorages",
                 columns: table => new
                 {
                     ProductId = table.Column<int>(nullable: false),
@@ -89,15 +90,15 @@ namespace TestBeTech.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductStorage", x => new { x.ProductId, x.StorageId });
+                    table.PrimaryKey("PK_ProductStorages", x => new { x.ProductId, x.StorageId });
                     table.ForeignKey(
-                        name: "FK_ProductStorage_Products_ProductId",
+                        name: "FK_ProductStorages_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductStorage_Storages_StorageId",
+                        name: "FK_ProductStorages_Storages_StorageId",
                         column: x => x.StorageId,
                         principalTable: "Storages",
                         principalColumn: "Id",
@@ -115,15 +116,15 @@ namespace TestBeTech.Migrations
                 column: "CurrencyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductStorage_StorageId",
-                table: "ProductStorage",
+                name: "IX_ProductStorages_StorageId",
+                table: "ProductStorages",
                 column: "StorageId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ProductStorage");
+                name: "ProductStorages");
 
             migrationBuilder.DropTable(
                 name: "Products");

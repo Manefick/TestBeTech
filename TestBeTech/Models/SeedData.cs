@@ -12,7 +12,6 @@ namespace TestBeTech.Models
         public static void EnsurePopulated(IApplicationBuilder app)
         {
             ApplicationDbContext context = app.ApplicationServices.GetRequiredService<ApplicationDbContext>();
-            context.Database.Migrate();
             if (!context.Currencies.Any())
             {
                 context.Currencies.AddRange(

@@ -11,5 +11,6 @@ namespace TestBeTech.Models
         public void AddStorage(Storage storage) { }
         public void EditStorage(Storage storage) { }
         public void DeleteStorage(Storage storage) { }
+        public Storage StorageWithProd(int id);
     }
 }

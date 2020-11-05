@@ -28,7 +28,7 @@ namespace TestBeTech.Controllers
                     Name = info.Name,
                     Address = info.Address
                 });
-                
+
             }
             return RedirectToAction("Index", "Home");
         }
@@ -40,7 +40,7 @@ namespace TestBeTech.Controllers
             {
                 foreach (Storage c in storages)
                 {
-                    viewStorages.Add(new ViewStorage {Id = c.Id, Name=c.Name, Address = c.Address});
+                    viewStorages.Add(new ViewStorage { Id = c.Id, Name = c.Name, Address = c.Address });
                 }
             }
             return View(new ViewChoiceStorage { storages = viewStorages });
@@ -48,7 +48,7 @@ namespace TestBeTech.Controllers
         [HttpPost]
         public IActionResult EditStorage(ViewChoiceStorage info)
         {
-            Storage storage = storegeRepository.Storages.Where(p=>p.Id==info.SelectedStorage).FirstOrDefault();
+            Storage storage = storegeRepository.Storages.Where(p => p.Id == info.SelectedStorage).FirstOrDefault();
             if (info.NewName != null && storage != null)
             {
                 storage.Name = info.NewName;
@@ -78,12 +78,43 @@ namespace TestBeTech.Controllers
         [HttpPost]
         public IActionResult DeleteStorage(ViewChoiceStorage info)
         {
-            Storage storage = storegeRepository.Storages.Where(p=>p.Id ==info.SelectedStorage).FirstOrDefault();
+            Storage storage = storegeRepository.Storages.Where(p => p.Id == info.SelectedStorage).FirstOrDefault();
             if (storage != null)
             {
                 storegeRepository.DeleteStorage(storage);
             }
             return RedirectToAction("Index", "Home");
+        }
+        public IActionResult DisplayStorage()
+        {
+            IEnumerable<Storage> storages = storegeRepository.Storages.ToList();
+            List<ViewStorage> viewStorages = new List<ViewStorage>();
+            if (storages != null)
+            {
+                foreach (Storage c in storages)
+                {
+                    viewStorages.Add(new ViewStorage { Id = c.Id, Name = c.Name, Address = c.Address });
+                }
+            }
+            return View(new ViewChoiceStorage { storages = viewStorages });
+        }
+        [HttpPost]
+        public IActionResult DisplayStorage(ViewChoiceStorage info)
+        {
+            var x = storegeRepository.StorageWithProd(info.SelectedStorage);
+            List<Product> prod = x.ProductStorages.Select(x => x.Product).ToList();
+            List<ViewProduct> viewProducts = prod.Select(x => new ViewProduct
+            {
+                Name = x.Name,
+                Id = x.Id,
+                Barcode = x.Barcode,
+                BasicCurrPrice = x.BasicCurrPrice,
+                Count = x.Count,
+                Price = x.Price,
+                CategoryName = x.Category.Name,
+                CurrencyName = x.Currency.ShortName
+            }).ToList();
+            return View("Display", viewProducts);
         }
 
     }

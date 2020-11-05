@@ -10,8 +10,8 @@ using TestBeTech.Models;
 namespace TestBeTech.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201105155748_prodstor")]
-    partial class prodstor
+    [Migration("20201105182304_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -109,7 +109,7 @@ namespace TestBeTech.Migrations
 
                     b.HasIndex("StorageId");
 
-                    b.ToTable("productStorages");
+                    b.ToTable("ProductStorages");
                 });
 
             modelBuilder.Entity("TestBeTech.Models.Storage", b =>

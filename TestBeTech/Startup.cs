@@ -36,6 +36,7 @@ namespace TestBeTech
             services.AddTransient<IStoregeRepository, StorageRepository>();
             services.AddTransient<ICurrencyRepository, CurrencyRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
+            //services.AddScoped<ApplicationDbContext>();
 
 
             services.AddControllersWithViews(mvcOtions =>

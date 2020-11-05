@@ -20,6 +20,10 @@ namespace TestBeTech.Models
         public int CurrencyId { get; set; }
         public Currency Currency { get; set; }
         public ICollection<ProductStorage> ProductStorages { get; set; }
+        public Product()
+        {
+            ProductStorages = new HashSet<ProductStorage>();
+        }
        
     }
     public class ProductStorage
