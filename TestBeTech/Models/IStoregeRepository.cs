@@ -8,5 +8,8 @@ namespace TestBeTech.Models
     public interface IStoregeRepository
     {
         IQueryable<Storage> Storages { get; }
+        public void AddStorage(Storage storage) { }
+        public void EditStorage(Storage storage) { }
+        public void DeleteStorage(Storage storage) { }
     }
 }
