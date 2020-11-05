@@ -8,5 +8,6 @@ namespace TestBeTech.Models
     public interface ICurrencyRepository
     {
         IQueryable<Currency> Currencies { get; }
+        public void EditCurrency(Currency currency);
     }
 }

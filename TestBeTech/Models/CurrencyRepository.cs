@@ -13,5 +13,13 @@ namespace TestBeTech.Models
             context = ctx;
         }
         public IQueryable<Currency> Currencies => context.Currencies;
+        public void EditCurrency(Currency currency)
+        {
+            if (currency != null)
+            {
+                context.Entry(currency).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
     }
 }
