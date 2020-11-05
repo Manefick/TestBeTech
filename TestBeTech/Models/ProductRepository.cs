@@ -13,5 +13,30 @@ namespace TestBeTech.Models
             context = ctx;
         }
         public IQueryable<Product> Products => context.Products;
+        public Product AddProduct(Product product)
+        {
+            if (product != null)
+            {
+                context.Products.Add(product);
+            }
+            context.SaveChanges();
+            return product;
+        }
+        public void EditProduct(Product product)
+        {
+            if (product != null)
+            {
+                context.Entry(product).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+        public void DeleteProduct(Product product)
+        {
+            if (product != null)
+            {
+                context.Remove(product);
+                context.SaveChanges();
+            }
+        }
     }
 }
