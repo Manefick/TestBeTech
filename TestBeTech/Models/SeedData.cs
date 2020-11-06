@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using System;
 
+
 namespace TestBeTech.Models
 {
     public static class SeedData
@@ -12,7 +13,7 @@ namespace TestBeTech.Models
         public static void EnsurePopulated(IApplicationBuilder app)
         {
             ApplicationDbContext context = app.ApplicationServices.GetRequiredService<ApplicationDbContext>();
-            if (!context.Currencies.Any())
+                if (!context.Currencies.Any())
             {
                 context.Currencies.AddRange(
                 new Currency

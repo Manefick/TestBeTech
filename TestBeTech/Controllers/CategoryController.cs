@@ -31,7 +31,7 @@ namespace TestBeTech.Controllers
         {
             IEnumerable<Category> categories = categoryRepository.Categories.ToList();
             List<ViewCategory> viewCategories = new List<ViewCategory>();
-            if (categories != null)// как через знак вопроса записать ти проверки
+            if (categories != null)
             {
                 foreach (Category c in categories)
                 {
@@ -55,7 +55,7 @@ namespace TestBeTech.Controllers
         {
             IEnumerable<Category> categories = categoryRepository.Categories.ToList();
             List<ViewCategory> viewCategories = new List<ViewCategory>();
-            if (categories != null)// как через знак вопроса записать ти проверки
+            if (categories != null)
             {
                 foreach (Category c in categories)
                 {
@@ -78,7 +78,7 @@ namespace TestBeTech.Controllers
         {
             IEnumerable<Category> categories = categoryRepository.Categories.ToList();
             List<ViewCategory> viewCategories = new List<ViewCategory>();
-            if (categories != null)// как через знак вопроса записать ти проверки
+            if (categories != null)
             {
                 foreach (Category c in categories)
                 {

@@ -10,9 +10,13 @@ namespace TestBeTech.Controllers
     public class StorageController : Controller
     {
         private IStoregeRepository storegeRepository;
-        public StorageController(IStoregeRepository sr)
+        private ICurrencyRepository currencyRepository;
+        private IProductRepository productRepository;
+        public StorageController(IStoregeRepository sr, IProductRepository product, ICurrencyRepository currency)
         {
             storegeRepository = sr;
+            currencyRepository = currency;
+            productRepository = product;
         }
         public IActionResult AddStorage()
         {
@@ -35,6 +39,15 @@ namespace TestBeTech.Controllers
         public IActionResult EditStorage()
         {
             IEnumerable<Storage> storages = storegeRepository.Storages.ToList();
+            IEnumerable<Currency> currencies = currencyRepository.Currencies.ToList();
+            List<ViewCurrency> viewCurrencies = currencies.Select(x => new ViewCurrency
+            {
+                Id = x.Id,
+                Name = x.Name,
+                ShortName = x.ShortName,
+                ExchangeRate = x.ExchangeRate,
+                UpdateDate = x.UpdateDate
+            }).ToList();
             List<ViewStorage> viewStorages = new List<ViewStorage>();
             if (storages != null)
             {
@@ -43,7 +56,7 @@ namespace TestBeTech.Controllers
                     viewStorages.Add(new ViewStorage { Id = c.Id, Name = c.Name, Address = c.Address });
                 }
             }
-            return View(new ViewChoiceStorage { storages = viewStorages });
+            return View(new ViewChoiceStorage { storages = viewStorages, CurrencyList=viewCurrencies });
         }
         [HttpPost]
         public IActionResult EditStorage(ViewChoiceStorage info)
@@ -115,6 +128,18 @@ namespace TestBeTech.Controllers
                 CurrencyName = x.Currency.ShortName
             }).ToList();
             return View("Display", viewProducts);
+        }
+        [HttpPost]
+        public IActionResult SumProduct(ViewChoiceStorage info)
+        {
+            var prod = storegeRepository.StorageWithProd(info.SelectedStorage);
+            List<Product> products = prod.ProductStorages.Select(x => x.Product).ToList();
+            double SumBasicCurren = products.Sum(p => p.BasicCurrPrice * p.Count);
+            double SumPriceProd = SumBasicCurren / currencyRepository.Currencies.FirstOrDefault(p => p.Id == info.SelectedCurrency)
+                .ExchangeRate;
+            return View(new ViewSumPrice { Curr = currencyRepository.Currencies.
+                FirstOrDefault(p=>p.Id == info.SelectedCurrency).ShortName, StorName = storegeRepository.Storages
+                .FirstOrDefault(p=>p.Id==info.SelectedStorage).Name, Sum = SumPriceProd});
         }
 
     }

@@ -20,4 +20,20 @@
     <button type="submit" class="btn btn-primary">Изменить</button>
     <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
+<h4>Для того щоб вивести суму всіх товарів складу, виберіть склад та валюту</h4>
+<form asp-action="SumProduct" method="post">
+    <div class="form-group">
+        <label asp-for="SelectedStorage">Выберите склад</label>
+        <select class="form-control" asp-for="SelectedStorage"
+                asp-items="@(new SelectList(Model.storages,"Id","Name"))">
+        </select>
+        <label asp-for="SelectedCurrency">Выберите склад</label>
+        <select class="form-control" asp-for="SelectedCurrency"
+                asp-items="@(new SelectList(Model.CurrencyList,"Id","ShortName"))">
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Вывести сумму товаров</button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
 

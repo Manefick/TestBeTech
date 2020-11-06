@@ -28,6 +28,7 @@ namespace TestBeTech
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ApplicationDbContext>();
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -36,7 +37,6 @@ namespace TestBeTech
             services.AddTransient<IStoregeRepository, StorageRepository>();
             services.AddTransient<ICurrencyRepository, CurrencyRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
-            //services.AddScoped<ApplicationDbContext>();
 
 
             services.AddControllersWithViews(mvcOtions =>
@@ -64,7 +64,7 @@ namespace TestBeTech
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            //SeedData.EnsurePopulated(app);
+            SeedData.EnsurePopulated(app);
         }
     }
 }

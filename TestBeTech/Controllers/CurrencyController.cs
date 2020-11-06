@@ -12,10 +12,14 @@ namespace TestBeTech.Controllers
     public class CurrencyController : Controller
     {
         private const int CodeUsd = 840;
+        private const int CodeEur = 978;
+
         private ICurrencyRepository currencyRepository;
-        public CurrencyController(ICurrencyRepository currency)
+        private IProductRepository productRepository;
+        public CurrencyController(ICurrencyRepository currency, IProductRepository product)
         {
             currencyRepository = currency;
+            productRepository = product;
         }
 
         static readonly HttpClient httpClient = new HttpClient();
@@ -25,14 +29,30 @@ namespace TestBeTech.Controllers
             string response = await responseByte.Content.ReadAsStringAsync();
             List<CurrencyJsonModel> currencyJsonModels = JsonConvert.DeserializeObject<List<CurrencyJsonModel>>(response);
             Currency currencyUsd = currencyRepository.Currencies.FirstOrDefault(p => p.ShortName == "USD");
+            Currency currencyEur = currencyRepository.Currencies.FirstOrDefault(p => p.ShortName == "EUR");
+            Currency currencyUah = currencyRepository.Currencies.FirstOrDefault(p => p.ShortName == "UAH");
             foreach(var x in currencyJsonModels)
             {
                 if(x.Code==CodeUsd)
                 {
-                    currencyUsd.ExchangeRate = x.ExchangeRate;
+                    currencyUah.ExchangeRate = 1 / x.ExchangeRate;
+                    currencyUah.UpdateDate = x.UpdateDate;
+                    currencyRepository.EditCurrency(currencyUah);
                     currencyUsd.UpdateDate = x.UpdateDate;
                     currencyRepository.EditCurrency(currencyUsd);
                 }
+                if (x.Code == CodeEur)
+                {
+                    currencyEur.ExchangeRate =  currencyUah.ExchangeRate* x.ExchangeRate;
+                    currencyEur.UpdateDate = x.UpdateDate;
+                    currencyRepository.EditCurrency(currencyEur);
+                }
+            }
+            foreach(Product product in productRepository.Products.ToList())
+            {
+                product.BasicCurrPrice = product.Price * 
+                    currencyRepository.Currencies.FirstOrDefault(p=>p.Id ==product.CurrencyId).ExchangeRate;
+                productRepository.EditProduct(product);
             }
             return RedirectToAction("Index", "Home");
         }

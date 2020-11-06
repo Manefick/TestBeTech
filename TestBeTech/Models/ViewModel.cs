@@ -38,13 +38,8 @@ namespace TestBeTech.Models
         public string NewName { get; set; }
         public string NewAdress { get; set; }
         public List<Product> ProductsList { get; set; }
-        //public string NameP { get; set; }
-        //public double BasicCurrPriceP { get; set; }
-        //public double PriceP { get; set; }
-        //public int BarcodeP { get; set; }
-        //public int CountP { get; set; }
-        //public Category CategoryP { get; set; }
-        //public Currency CurrencyP { get; set; }
+        public int SelectedCurrency { get; set; }
+        public List<ViewCurrency> CurrencyList { get; set; }
 
     }
     public class ViewProduct
@@ -64,5 +59,11 @@ namespace TestBeTech.Models
         public IEnumerable<ViewCategory> categories { get; set; }
         public IEnumerable<ViewStorage> storages { get; set; }
         public IEnumerable<ViewCurrency> currencies  { get; set; }
+    }
+    public class ViewSumPrice
+    {
+        public Double Sum { get; set; }
+        public string Curr { get; set; }
+        public string StorName { get; set; }
     }
 }
