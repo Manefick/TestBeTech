@@ -60,6 +60,20 @@ namespace TestBeTech.Models
         public IEnumerable<ViewStorage> storages { get; set; }
         public IEnumerable<ViewCurrency> currencies  { get; set; }
     }
+    public class ViewChoiseProduct
+    {
+        public string NewName { get; set; }
+        public double NewPrice { get; set; }
+        public int NewCount { get; set; }
+        public int SelectedProduct { get; set; }
+        public int SelectedCategory { get; set; }
+        public int SelectedCurrency { get; set; }
+        public int SelectedStorage { get; set; }
+        public IEnumerable<ViewCategory> categories { get; set; }
+        public IEnumerable<ViewStorage> storages { get; set; }
+        public IEnumerable<ViewCurrency> currencies { get; set; }
+        public IEnumerable<ViewProduct> products { get; set; }
+    }
     public class ViewSumPrice
     {
         public Double Sum { get; set; }
